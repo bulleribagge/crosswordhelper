@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/bulleribagge/crosswordhelper/issues"
   },
-  "homepage": "https://github.com/bulleribagge/crosswordhelper#readme"
+  "homepage": "https://github.com/bulleribagge/crosswordhelper#readme",
+  "dependencies":{
+    "express": "*"
+  }
 }
