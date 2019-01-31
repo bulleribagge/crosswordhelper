@@ -15,7 +15,7 @@ app.all('/word/:word', function (req, res) {
             {
                 res.json(words);
             }else{
-                res.send('No matches found for: ' + word);
+                res.json(null);
             }
         });
     }
