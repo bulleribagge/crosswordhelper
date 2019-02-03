@@ -18,5 +18,9 @@
   "homepage": "https://github.com/bulleribagge/crosswordhelper#readme",
   "dependencies": {
     "express": "*"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "mock-fs": "^4.7.0"
   }
 }

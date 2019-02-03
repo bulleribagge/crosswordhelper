@@ -1,0 +1,93 @@
+<html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+        <style>
+            body {
+                font-family: 'consolas'
+            }
+
+            .bigTextInput{
+                width: 50%;
+                font-size: 7em;
+                height: 200px;
+                margin-bottom: 25px;
+            }
+
+            #submitBtn {
+                margin-top: 25px;
+                width: 100%;
+                height: 200px;
+                font-size: 7em;
+            }
+
+            #resList {
+                font-size: 2em;
+            }
+
+            .numberInput {
+                width: 35%;
+                font-size: 3em;
+            }
+        </style>
+</head>
+<body>
+    <form id="form1">
+        <label for="letters">Brickor</label>
+    </br>
+        <input type="text" name="letters" id="letters" class="bigTextInput"/>
+    </br>
+        <label for="mandatoryletter">Bokstäver som måste finnas</label>
+    </br>
+        <input type="text" name="mandatoryletter" id="mandatoryletter" class="bigTextInput" />
+    </br>
+        <label for="mandatoryletterindex">Index på bokstav som måste finnas</label>
+    </br>
+        <input type="number" name="mandatoryletterindex" id="mandatoryletterindex" class="numberInput"/>
+    </br>
+        <label for="minlength">Minst antal bokstäver</label>
+    </br>
+        <input type="number" name="minlength" id="minlength" class="numberInput"/>
+    </br>
+        <label for="maxlength">Max antal bokstäver</label>
+    </br>
+        <input type="number" name="maxlength" id="maxlength" class="numberInput" />
+    
+        <input type="submit" value="Hitta ord" id="submitBtn" />
+    </form>
+
+    <div id="res">
+        <ul id="resList">
+            
+        </ul>
+    </div>
+
+    <script type="text/javascript">
+        $("#form1").submit(function(event){
+            $("#resList").empty();
+            
+           event.preventDefault();
+           
+           var letters = $("#letters").val();
+           var mandatoryLetter = $("#mandatoryletter").val();
+           var maxLength = $("#maxlength").val();
+           var minLength = $("#minlength").val();
+           var mandatoryLetterIndex = $("#mandatoryletterindex").val();
+           
+           $.getJSON('/scrabbleword', { word: letters, mandatoryletter: mandatoryLetter, maxlength: maxLength, minlength: minLength, mandatoryletterindex: mandatoryLetterIndex }, function(res){
+               if(!res)
+               {
+                   $("#resList").append('<li>No matches found</li>');
+                   return;
+               }
+
+               res.forEach(function(el){
+                    $("#resList").append('<li>' + el.word + ' matches ' + el.matches + ' score ' + el.score + ' fullmatch ' + el.fullMatch + '</li>');
+               });
+           })
+        });
+    </script>
+</body>
+
+</html>
